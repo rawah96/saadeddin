@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حلويات سعد الدين — Saad Eddin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E0F0B;
+  --green-deep:#1B2414;
+  --green-mid:#2B3620;
+  --gold:#C9A24A;
+  --gold-bright:#E8C878;
+  --cream:#F7F2E7;
+  --cream-dim:#EFE8D8;
+  --cocoa:#2A1710;
+  --white:#FFFFFF;
+  --ink-soft:rgba(14,15,11,0.62);
+  --line:rgba(14,15,11,0.14);
+
+  --font-display:'Fraunces',serif;
+  --font-body:'Inter',sans-serif;
+}
+html[lang="ar"]{
+  --font-display:'Aref Ruqaa',serif;
+  --font-body:'Tajawal',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--cream);
+  color:var(--cocoa);
+  font-family:var(--font-body);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--gold);color:var(--ink);}
+
+h1,h2,h3{
+  font-family:var(--font-display);
+  font-weight:600;
+  line-height:1.1;
+}
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3{font-weight:700;line-height:1.3;}
+
+.eyebrow{
+  font-family:var(--font-body);
+  font-size:11px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--gold);
+  display:flex;align-items:center;gap:8px;
+}
+html[lang="ar"] .eyebrow{letter-spacing:0;font-size:13px;}
+.eyebrow::before{content:'';width:14px;height:1px;background:var(--gold);display:inline-block;}
+html[lang="ar"] .eyebrow::before{display:none;}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+section{position:relative;}
+
+/* ---------- language toggle & nav ---------- */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px 40px;
+  mix-blend-mode:difference;
+}
+#nav .wordmark{
+  font-family:var(--font-display);font-weight:700;
+  font-size:20px;color:var(--white);
+}
+#nav .right{display:flex;align-items:center;gap:28px;}
+#nav .links{display:flex;gap:28px;}
+#nav .links a{
+  font-family:var(--font-body);font-size:12px;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--white);text-decoration:none;
+  opacity:0.75;transition:opacity 0.25s;
+}
+html[lang="ar"] #nav .links a{text-transform:none;letter-spacing:0;font-size:14px;}
+#nav .links a:hover{opacity:1;}
+#lang-toggle{
+  font-family:'Inter',sans-serif;font-size:12px;letter-spacing:0.05em;
+  color:var(--white);background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.35);
+  border-radius:20px;padding:7px 16px;cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+}
+#lang-toggle:hover{background:rgba(255,255,255,0.2);}
+
+/* ---------- i18n helper ---------- */
+[data-en][data-ar]{}
+
+/* ============ HERO STAGE (pinned scroll-scrub video) ============ */
+#stage-section{
+  height:340vh;
+  position:relative;
+}
+#stage-pin{
+  position:relative;
+  height:100vh;
+  overflow:hidden;
+  background:var(--ink);
+}
+.stage-perspective{position:absolute;inset:0;}
+#video-stage{
+  position:absolute;inset:0;
+  will-change:transform;
+  transform:scale(1.04);
+}
+#video-canvas{
+  display:block;
+  width:100%;
+  height:100%;
+  background:var(--ink);
+}
+#stage-scrim{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(14,15,11,0.5) 0%, rgba(14,15,11,0.05) 26%, rgba(14,15,11,0.1) 66%, rgba(14,15,11,0.75) 100%);
+  pointer-events:none;
+}
+
+#hero-copy{
+  position:absolute;left:0;right:0;top:60%;
+  text-align:center;pointer-events:none;
+  transform:translateY(-50%);
+}
+#hero-copy .eyebrow{justify-content:center;color:var(--gold-bright);}
+#hero-copy .eyebrow::before{background:var(--gold-bright);}
+#hero-copy h1{
+  font-size:clamp(36px,6vw,76px);
+  max-width:820px;margin:18px auto 0;
+  color:var(--white);
+}
+#hero-copy p{
+  max-width:460px;margin:18px auto 0;
+  color:rgba(247,242,231,0.7);font-size:16px;line-height:1.6;
+  font-family:var(--font-body);
+}
+#scroll-cue{
+  position:absolute;left:50%;bottom:36px;transform:translateX(-50%);
+  font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.16em;
+  text-transform:uppercase;color:rgba(247,242,231,0.55);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+#scroll-cue .line{width:1px;height:34px;background:rgba(255,255,255,0.25);position:relative;overflow:hidden;}
+#scroll-cue .line::after{
+  content:'';position:absolute;left:0;top:-100%;width:100%;height:100%;
+  background:var(--gold-bright);
+  animation:cueDrop 1.6s ease-in-out infinite;
+}
+@keyframes cueDrop{ to{ top:100%; } }
+
+/* ============ MENU HIGHLIGHTS ============ */
+#menu{
+  padding:130px 0 110px;
+  background:var(--cream);
+}
+#menu .head{max-width:560px;margin:0 auto 60px;text-align:center;}
+#menu .head h2{font-size:clamp(28px,3.8vw,44px);margin-top:14px;color:var(--cocoa);}
+#menu .head p{color:var(--ink-soft);font-size:15px;margin-top:14px;line-height:1.6;}
+
+.menu-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+}
+.menu-card{
+  background:var(--green-deep);
+  border-radius:4px;
+  padding:36px 26px;
+  min-height:200px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  position:relative;
+  overflow:hidden;
+  transition:transform 0.35s ease;
+}
+.menu-card:hover{transform:translateY(-4px);}
+.menu-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 20%, rgba(201,162,74,0.18), transparent 60%);
+}
+.menu-card h3{
+  font-size:22px;color:var(--cream);position:relative;z-index:1;
+}
+.menu-card .sub{
+  font-family:var(--font-body);font-size:12.5px;color:rgba(247,242,231,0.55);
+  margin-top:6px;position:relative;z-index:1;letter-spacing:0.04em;
+}
+.menu-card .mark{
+  position:absolute;top:22px;inset-inline-end:24px;
+  width:8px;height:8px;border-radius:50%;background:var(--gold);
+}
+
+/* ============ ORDER / BRANCHES CTA ============ */
+#order{
+  padding:120px 0;
+  background:var(--ink);
+  color:var(--cream);
+  text-align:center;
+}
+#order .eyebrow{justify-content:center;color:var(--gold-bright);}
+#order .eyebrow::before{background:var(--gold-bright);}
+#order h2{
+  font-size:clamp(30px,4.6vw,52px);color:var(--white);
+  max-width:640px;margin:18px auto 0;
+}
+#order p{max-width:460px;margin:18px auto 0;color:rgba(247,242,231,0.62);font-size:15px;line-height:1.6;}
+
+.btn-row{display:flex;gap:16px;justify-content:center;margin-top:40px;flex-wrap:wrap;}
+.btn{
+  font-family:var(--font-body);font-size:13px;letter-spacing:0.04em;
+  text-decoration:none;
+  padding:16px 32px;border-radius:2px;
+  display:inline-flex;align-items:center;gap:10px;
+  transition:transform 0.25s ease, background 0.25s ease;
+}
+.btn.primary{background:var(--gold);color:var(--ink);}
+.btn.primary:hover{background:var(--gold-bright);transform:translateY(-2px);}
+.btn.ghost{border:1px solid rgba(247,242,231,0.35);color:var(--cream);}
+.btn.ghost:hover{border-color:var(--cream);transform:translateY(-2px);}
+
+#branches{padding:70px 0 20px;}
+#branches .label{
+  font-family:var(--font-body);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+  color:rgba(247,242,231,0.4);margin-bottom:22px;
+}
+html[lang="ar"] #branches .label{letter-spacing:0;text-transform:none;font-size:13px;}
+.city-row{
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+}
+.city-chip{
+  font-family:var(--font-body);font-size:13px;color:rgba(247,242,231,0.75);
+  border:1px solid rgba(247,242,231,0.18);border-radius:20px;
+  padding:8px 18px;
+}
+
+/* ============ FOOTER ============ */
+footer{
+  padding:44px 0 40px;
+  background:var(--ink);
+  border-top:1px solid rgba(247,242,231,0.1);
+}
+footer .wrap{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:20px;
+}
+footer .est{
+  font-family:var(--font-body);font-size:12px;color:rgba(247,242,231,0.45);
+  letter-spacing:0.04em;
+}
+footer .fnav{display:flex;gap:24px;}
+footer .fnav a{
+  font-family:var(--font-body);font-size:12px;color:rgba(247,242,231,0.6);text-decoration:none;
+}
+footer .fnav a:hover{color:var(--cream);}
+
+@media (max-width:860px){
+  .menu-grid{grid-template-columns:repeat(2,1fr);}
+  #stage-section{height:220vh;}
+}
+@media (max-width:560px){
+  .menu-grid{grid-template-columns:1fr;}
+}
+
+
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wordmark" data-en="Saad Eddin" data-ar="سعد الدين">سعد الدين</div>
+  <div class="right">
+    <div class="links">
+      <a href="#menu" data-en="Menu" data-ar="المنيو">المنيو</a>
+      <a href="#order" data-en="Order" data-ar="الطلب">الطلب</a>
+      <a href="#branches" data-en="Branches" data-ar="الفروع">الفروع</a>
+    </div>
+    <button id="lang-toggle" type="button">EN</button>
+  </div>
+</nav>
+
+<!-- ============ HERO STAGE ============ -->
+<section id="stage-section">
+  <div id="stage-pin">
+    <div class="stage-perspective">
+      <div id="video-stage">
+        <canvas id="video-canvas" aria-label="Saad Eddin curtain reveal video"></canvas>
+      </div>
+    </div>
+    <div id="stage-scrim"></div>
+
+    <div id="hero-copy">
+      <div class="eyebrow" data-en="SINCE 1976" data-ar="منذ ١٩٧٦">منذ ١٩٧٦</div>
+      <h1 data-en="Some moments deserve a reveal." data-ar="بعض اللحظات تستاهل احتفال.">بعض اللحظات تستاهل احتفال.</h1>
+      <p data-en="Saad Eddin has been Saudi Arabia's house of kunafa, baklava, and celebration cakes since 1976." data-ar="سعد الدين بيت الكنافة والبقلاوة وكيك المناسبات في السعودية من سنة ١٩٧٦.">سعد الدين بيت الكنافة والبقلاوة وكيك المناسبات في السعودية من سنة ١٩٧٦.</p>
+    </div>
+
+    <div id="scroll-cue">
+      <span data-en="Scroll" data-ar="مرر لتحت">مرر لتحت</span>
+      <div class="line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU HIGHLIGHTS ============ -->
+<section id="menu">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow" style="justify-content:center;" data-en="THE MENU" data-ar="المنيو">المنيو</div>
+      <h2 data-en="Six ways we do dessert best." data-ar="ست فئات نتقنها من زمان.">ست فئات نتقنها من زمان.</h2>
+      <p data-en="From the ovens of Khobar in 1976 to more than a hundred branches today — the recipes haven't changed." data-ar="من فرن الخبر سنة ١٩٧٦ لأكثر من مية فرع اليوم — والوصفة نفسها ما تغيرت.">من فرن الخبر سنة ١٩٧٦ لأكثر من مية فرع اليوم — والوصفة نفسها ما تغيرت.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="mark"></div>
+        <h3 data-en="Kunafa" data-ar="كنافة">كنافة</h3>
+        <div class="sub" data-en="Fresh, warm, cheese or nut-filled" data-ar="طازجة وسخنة، جبن أو محشية مكسرات">طازجة وسخنة، جبن أو محشية مكسرات</div>
+      </div>
+      <div class="menu-card">
+        <div class="mark"></div>
+        <h3 data-en="Baklava" data-ar="بقلاوة">بقلاوة</h3>
+        <div class="sub" data-en="Layered pastry, honey and pistachio" data-ar="طبقات عجين، عسل وفستق">طبقات عجين، عسل وفستق</div>
+      </div>
+      <div class="menu-card">
+        <div class="mark"></div>
+        <h3 data-en="Celebration Cakes" data-ar="كيك المناسبات">كيك المناسبات</h3>
+        <div class="sub" data-en="Kit Kat, Rocher, cheesecake and more" data-ar="كيت كات، روشيه، تشيز كيك وغيرها">كيت كات، روشيه، تشيز كيك وغيرها</div>
+      </div>
+      <div class="menu-card">
+        <div class="mark"></div>
+        <h3 data-en="Chocolate" data-ar="شوكولاتة">شوكولاتة</h3>
+        <div class="sub" data-en="Handmade, gifted, always fresh" data-ar="صناعة يدوية، هدايا وطازجة دايم">صناعة يدوية، هدايا وطازجة دايم</div>
+      </div>
+      <div class="menu-card">
+        <div class="mark"></div>
+        <h3 data-en="Basbousa" data-ar="بسبوسة">بسبوسة</h3>
+        <div class="sub" data-en="Semolina cake, soaked in syrup" data-ar="كيكة السميد المغموسة بالشيرة">كيكة السميد المغموسة بالشيرة</div>
+      </div>
+      <div class="menu-card">
+        <div class="mark"></div>
+        <h3 data-en="Umm Ali" data-ar="أم علي">أم علي</h3>
+        <div class="sub" data-en="Warm pastry pudding, served fresh" data-ar="حلى المعجنات الدافي، يقدم طازج">حلى المعجنات الدافي، يقدم طازج</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORDER + BRANCHES ============ -->
+<section id="order">
+  <div class="wrap">
+    <div class="eyebrow" data-en="ORDER & VISIT" data-ar="اطلب أو زورنا">اطلب أو زورنا</div>
+    <h2 data-en="Get it delivered, or find your nearest branch." data-ar="اطلبها توصلك، أو زور أقرب فرع.">اطلبها توصلك، أو زور أقرب فرع.</h2>
+    <p data-en="Over 100 branches across Saudi Arabia, plus Bahrain, Qatar, and beyond." data-ar="أكثر من ١٠٠ فرع في السعودية، وكمان في البحرين وقطر وغيرها.">أكثر من ١٠٠ فرع في السعودية، وكمان في البحرين وقطر وغيرها.</p>
+    <div class="btn-row">
+      <a href="#" class="btn primary" data-en="Order Online" data-ar="اطلب أونلاين">اطلب أونلاين</a>
+      <a href="#branches" class="btn ghost" data-en="Find a Branch" data-ar="أقرب فرع">أقرب فرع</a>
+    </div>
+  </div>
+
+  <div id="branches" class="wrap">
+    <div class="label" data-en="BRANCHES ACROSS THE KINGDOM" data-ar="فروعنا في المملكة">فروعنا في المملكة</div>
+    <div class="city-row">
+      <span class="city-chip" data-en="Riyadh" data-ar="الرياض">الرياض</span>
+      <span class="city-chip" data-en="Jeddah" data-ar="جدة">جدة</span>
+      <span class="city-chip" data-en="Madinah" data-ar="المدينة المنورة">المدينة المنورة</span>
+      <span class="city-chip" data-en="Makkah" data-ar="مكة المكرمة">مكة المكرمة</span>
+      <span class="city-chip" data-en="Dammam" data-ar="الدمام">الدمام</span>
+      <span class="city-chip" data-en="Khobar" data-ar="الخبر">الخبر</span>
+      <span class="city-chip" data-en="Dhahran" data-ar="الظهران">الظهران</span>
+      <span class="city-chip" data-en="Jubail" data-ar="الجبيل">الجبيل</span>
+      <span class="city-chip" data-en="Taif" data-ar="الطائف">الطائف</span>
+      <span class="city-chip" data-en="Tabuk" data-ar="تبوك">تبوك</span>
+      <span class="city-chip" data-en="Hofuf" data-ar="الهفوف">الهفوف</span>
+      <span class="city-chip" data-en="Jazan" data-ar="جازان">جازان</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="est" data-en="Saad Eddin — Est. 1976, Khobar, Saudi Arabia" data-ar="سعد الدين — تأسست ١٩٧٦، الخبر، السعودية">سعد الدين — تأسست ١٩٧٦، الخبر، السعودية</div>
+    <div class="fnav">
+      <a href="#menu" data-en="Menu" data-ar="المنيو">المنيو</a>
+      <a href="#order" data-en="Order" data-ar="الطلب">الطلب</a>
+      <a href="#branches" data-en="Branches" data-ar="الفروع">الفروع</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ---------- bilingual toggle ---------- */
+const i18nEls = () => document.querySelectorAll('[data-en][data-ar]');
+let currentLang = 'ar';
+
+function applyLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  i18nEls().forEach(el => { el.textContent = el.dataset[lang]; });
+  document.getElementById('lang-toggle').textContent = lang === 'ar' ? 'EN' : 'ع';
+}
+
+document.getElementById('lang-toggle').addEventListener('click', () => {
+  applyLang(currentLang === 'ar' ? 'en' : 'ar');
+});
+
+applyLang('ar');
+
+/* ---------- video-as-frames scroll scrubber ---------- */
+window.addEventListener('DOMContentLoaded', () => {
+
+  const FRAME_COUNT = 81;
+  const framePath = i => `frames/frame_${String(i).padStart(3,'0')}.jpg`;
+  const frameImages = [];
+  const canvas = document.getElementById('video-canvas');
+  const ctx = canvas.getContext('2d');
+  const frameState = { frame: 0 };
+
+  function sizeCanvas(){
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function drawFrame(index){
+    const img = frameImages[index];
+    if (!img || !img.complete || !img.naturalWidth) return;
+    const rect = canvas.getBoundingClientRect();
+    const cw = rect.width, ch = rect.height;
+    ctx.clearRect(0, 0, cw, ch);
+    const scale = Math.max(cw / img.width, ch / img.height);
+    const dw = img.width * scale, dh = img.height * scale;
+    ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+  }
+
+  for (let i = 1; i <= FRAME_COUNT; i++) {
+    const img = new Image();
+    img.src = framePath(i);
+    if (i === 1) img.onload = () => { sizeCanvas(); drawFrame(0); };
+    frameImages.push(img);
+  }
+
+  window.addEventListener('resize', () => {
+    sizeCanvas();
+    drawFrame(Math.round(frameState.frame));
+  });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotion) {
+    gsap.set('#hero-copy', { opacity: 1 });
+    return;
+  }
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#stage-section',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 0.8,
+      pin: '#stage-pin',
+      anticipatePin: 1
+    },
+    defaults: { ease: 'none' }
+  });
+
+  tl.to(frameState, {
+    frame: FRAME_COUNT - 1,
+    duration: 1,
+    onUpdate: () => drawFrame(Math.round(frameState.frame))
+  }, 0);
+  tl.to('#video-stage', { x: 8, y: -6, duration: 1 }, 0);
+  tl.to('#scroll-cue', { opacity: 0, duration: 0.05 }, 0.04);
+  tl.to('#hero-copy', { opacity: 0, y: -22, duration: 0.14 }, 0.72);
+});
+</script>
+</body>
+
+</html>
